@@ -12,28 +12,36 @@ export default function DayView({
 }) {
   const today = getToday();
   const isToday = selectedDate === today;
-  const [orderedTasks, setOrderedTasks] = useState(tasks);
+  const [taskOrder, setTaskOrder] = useState(() => tasks.map(t => t.id));
   const [reorderMode, setReorderMode] = useState(false);
   const prevTaskIds = useRef('');
 
   const taskIds = tasks.map((t) => t.id).join(',');
   if (taskIds !== prevTaskIds.current) {
     prevTaskIds.current = taskIds;
-    setOrderedTasks(tasks);
+    setTaskOrder(tasks.map(t => t.id));
   }
+
+  const orderedTasks = taskOrder
+    .map(id => tasks.find(t => t.id === id))
+    .filter(Boolean);
 
   function handleMoveUp(index) {
     if (index === 0) return;
-    const items = [...orderedTasks];
-    [items[index], items[index - 1]] = [items[index - 1], items[index]];
-    setOrderedTasks(items);
+    setTaskOrder(prev => {
+      const items = [...prev];
+      [items[index], items[index - 1]] = [items[index - 1], items[index]];
+      return items;
+    });
   }
 
   function handleMoveDown(index) {
     if (index === orderedTasks.length - 1) return;
-    const items = [...orderedTasks];
-    [items[index], items[index + 1]] = [items[index + 1], items[index]];
-    setOrderedTasks(items);
+    setTaskOrder(prev => {
+      const items = [...prev];
+      [items[index], items[index + 1]] = [items[index + 1], items[index]];
+      return items;
+    });
   }
 
   return (
