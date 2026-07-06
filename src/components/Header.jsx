@@ -11,6 +11,12 @@ export default function Header({ darkMode, onToggleDarkMode, onMenuToggle }) {
             <line x1="3" y1="18" x2="21" y2="18" />
           </svg>
         </button>
+        <svg className="app-logo" width="24" height="24" viewBox="0 0 48 48" fill="none">
+          <rect x="6" y="5" width="36" height="39" rx="3" fill="currentColor"/>
+          <rect x="6" y="5" width="5" height="39" rx="2" fill="currentColor" opacity="0.6"/>
+          <path d="M37 5V17L33 14L29 17V5" fill="#ffd700"/>
+          <path d="M18 25L22 29L30 19" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
         <h1 className="app-title">Study Task Tracker</h1>
       </div>
       <div className="header-right">
